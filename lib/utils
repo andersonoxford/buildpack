@@ -68,6 +68,13 @@ function apt_install(){
   echo "APT packages Installled"
 }
 
+function dotnet_cleanup() {
+   local BUILD_DIR="$1"
+ 
+   rm /app/dotnet
+   rm -rf ${BUILD_DIR}/.heroku/dotnet
+}
+
 export_env_dir() {
   local env_dir=$1
   if [ -d "$env_dir" ]; then
