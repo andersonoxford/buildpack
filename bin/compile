@@ -45,7 +45,7 @@ echo "restore ${PROJECT_FILE}"
 dotnet restore $PROJECT_FILE --runtime linux-x64
 
 echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64 && chmod +x ${PROJECT_NAME}
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
 
 echo "cleanup"
 dotnet_cleanup $BUILD_DIR
