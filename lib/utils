@@ -75,7 +75,7 @@ function dotnet_cleanup() {
    rm /app/dotnet
    rm -rf ${BUILD_DIR}/.heroku/dotnet
   for dir in ${BUILD_DIR}/*; do
-    [ "$dir" = "heroku_output" ] && continue
+    [ "$dir" = "${BUILD_DIR}/heroku_output" ] && continue
     rm -rf "$dir"
   done
 }
