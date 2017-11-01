@@ -38,13 +38,16 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 cd $BUILD_DIR
 dotnet --info
 
-$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do 
-PROJECT_FILE =$(find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`); 
-echo "restore ${PROJECT_FILE}"
-dotnet restore $PROJECT_FILE --runtime linux-x64
+FILES=(`find ${BUILD_DIR} -maxdepth 2 -name '*'Program.cs`);
+for f in "${FILES[@]}"; do
+	DIR_NAME=$(dirname "$f");
+	PROJECT_FILE=$(find ${DIR_NAME} -maxdepth 1 -name *.csproj);
 
-echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+	echo "restore ${PROJECT_FILE}"
+	dotnet restore $PROJECT_FILE --runtime linux-x64
+
+	echo "publish ${PROJECT_FILE}"
+	dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
 done
 
 
