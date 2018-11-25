@@ -43,15 +43,21 @@ function install_dotnet() {
 
 function dotnet_cleanup() {
    local BUILD_DIR="$1"
- 
-   rm /app/dotnet
-   rm -rf ${BUILD_DIR}/.heroku/dotnet
+  local CACHE_DIR="$2"
+  local DOTNET_SDK_VERSION="$3"
+  local DOTNET_RUNTIME_VERSION="$4"
+
+  local DOTNET_CACHE_LOCATION=${CACHE_DIR}/dotnet/${DOTNET_SDK_VERSION}
+  rm -rf ${DOTNET_CACHE_LOCATION}
+  rm -rf ${BUILD_DIR}/.heroku/dotnet
+  
   for dir in ${BUILD_DIR}/*; do
     [ "$dir" = "${BUILD_DIR}/heroku_output" ] && continue
     [ "$dir" = "${BUILD_DIR}/Procfile" ] && continue
     rm -rf "$dir"
   done
 }
+
 export_env_dir() {
   local env_dir=$1
   if [ -d "$env_dir" ]; then
