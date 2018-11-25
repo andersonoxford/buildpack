@@ -55,4 +55,4 @@ done
 
 
 echo "cleanup"
-dotnet_cleanup $BUILD_DIR
+dotnet_cleanup $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
